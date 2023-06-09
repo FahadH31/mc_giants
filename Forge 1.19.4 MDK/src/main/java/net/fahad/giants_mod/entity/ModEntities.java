@@ -18,7 +18,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<GiantEntity>> GIANT =
             ENTITY_TYPES.register("giant",
                     () -> EntityType.Builder.of(GiantEntity::new, MobCategory.CREATURE)
-                            .sized(1.5f, 1.75f)
+                            .sized(3f, 10f)
                             .build(new ResourceLocation(GiantsMod.MOD_ID, "giant").toString()));
 
 
