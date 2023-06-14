@@ -5,6 +5,7 @@ import net.fahad.giants_mod.entity.client.GiantRenderer;
 import net.fahad.giants_mod.item.ModItems;
 import net.fahad.giants_mod.sound.ModSounds;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -31,11 +32,15 @@ public class GiantsMod
         MinecraftForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::addCreative);
-
     }
 
     private void addCreative(CreativeModeTabEvent.BuildContents event) {
-        event.accept(ModItems.GIANT_SPAWN_EGG);
+        if(event.getTab() == CreativeModeTabs.SPAWN_EGGS){
+            event.accept(ModItems.GIANT_SPAWN_EGG);
+        }
+        if(event.getTab() == CreativeModeTabs.COMBAT){
+            event.accept(ModItems.SPIKED_CLUB);
+        }
     }
 
 

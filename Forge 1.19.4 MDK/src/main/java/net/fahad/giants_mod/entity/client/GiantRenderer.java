@@ -14,7 +14,7 @@ public class GiantRenderer extends GeoEntityRenderer<GiantEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(GiantEntity animatable) {
-        return new ResourceLocation(GiantsMod.MOD_ID, "textures/entity/gianttexture.png");
+        return new ResourceLocation(GiantsMod.MOD_ID, "textures/entity/giant_texture.png");
     }
 }
 

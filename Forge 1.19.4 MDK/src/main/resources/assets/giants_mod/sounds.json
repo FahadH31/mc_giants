@@ -1,6 +1,14 @@
 {
   "giant_footsteps": {
     "subtitle": "giants_mod.subtitle.giant_footsteps",
-    "sounds": ["giants_mod:giant_footsteps"]
+    "sounds": ["giants_mod:giant_footsteps", "giants_mod:foot_shuffling"]
+  },
+  "giant_hurt": {
+    "subtitle": "giants_mod.subtitle.giant_hurt",
+    "sounds": ["giants_mod:giant_hurt"]
+  },
+  "giant_ambient": {
+    "subtitle": "giants_mod.subtitle.giant_ambient",
+    "sounds": ["giants_mod:giant_ambient"]
   }
 }

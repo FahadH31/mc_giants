@@ -13,6 +13,8 @@ public class ModSounds {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, GiantsMod.MOD_ID);
 
     public static final RegistryObject<SoundEvent> GIANT_FOOTSTEPS = registerSoundEvent("giant_footsteps");
+    public static final RegistryObject<SoundEvent> GIANT_HURT = registerSoundEvent("giant_hurt");
+    public static final RegistryObject<SoundEvent> GIANT_AMBIENT = registerSoundEvent("giant_ambient");
 
     private static RegistryObject<SoundEvent> registerSoundEvent (String name){
         ResourceLocation id = new ResourceLocation(GiantsMod.MOD_ID, name);

@@ -18,7 +18,7 @@ public class GiantModel extends GeoModel<GiantEntity> {
 
     @Override
     public ResourceLocation getTextureResource(GiantEntity animatable) {
-        return new ResourceLocation(GiantsMod.MOD_ID, "textures/entity/gianttexture.png");
+        return new ResourceLocation(GiantsMod.MOD_ID, "textures/entity/giant_texture.png");
     }
 
     @Override

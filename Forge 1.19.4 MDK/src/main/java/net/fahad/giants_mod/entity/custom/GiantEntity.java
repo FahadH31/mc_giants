@@ -46,8 +46,8 @@ public class GiantEntity extends Monster implements GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 0.8D, false));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.7D));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -61,8 +61,8 @@ public class GiantEntity extends Monster implements GeoEntity {
 
     private <T extends GeoAnimatable> PlayState attackPredicate(AnimationState<T> tAnimationState) {
         if(this.swinging && tAnimationState.getController().getAnimationState().equals(AnimationController.State.STOPPED)){
+            tAnimationState.getController().forceAnimationReset();
             tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.giant.attack", Animation.LoopType.PLAY_ONCE));
-            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }
@@ -81,20 +81,20 @@ public class GiantEntity extends Monster implements GeoEntity {
         return cache;
     }
 
-
+    protected SoundEvent getAmbientSound(){
+        return ModSounds.GIANT_AMBIENT.get();
+    }
     protected SoundEvent getHurtSound(DamageSource p_34327_) {
-        return SoundEvents.ZOMBIE_HURT;
+        return ModSounds.GIANT_HURT.get();
     }
-
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ZOMBIE_DEATH;
+        return ModSounds.GIANT_HURT.get();
     }
-
     protected SoundEvent getStepSound() {
         return ModSounds.GIANT_FOOTSTEPS.get();
     }
 
     protected void playStepSound(BlockPos p_34316_, BlockState p_34317_) {
-        this.playSound(this.getStepSound(), 0.15F, 5.0F);
+        this.playSound(this.getStepSound(),  0.15F, 5.0F);
     }
 }
