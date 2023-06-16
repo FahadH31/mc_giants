@@ -1,0 +1,6 @@
+{
+"parent":"minecraft:item/generated",
+  "textures":{
+    "layer0":"colossal_giants_mod:item/giant_spawn_egg_texture"
+  }
+}

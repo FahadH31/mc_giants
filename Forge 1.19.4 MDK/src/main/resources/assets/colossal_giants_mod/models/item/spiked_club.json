@@ -1,0 +1,6 @@
+{
+"parent":"minecraft:item/handheld",
+  "textures":{
+    "layer0":"colossal_giants_mod:item/spiked_club_texture"
+  }
+}
