@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,11 +34,11 @@ public class GiantsMod
         modEventBus.addListener(this::addCreative);
     }
 
-    private void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == CreativeModeTabs.SPAWN_EGGS){
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS){
             event.accept(ModItems.GIANT_SPAWN_EGG);
         }
-        if(event.getTab() == CreativeModeTabs.COMBAT){
+        if(event.getTabKey() == CreativeModeTabs.COMBAT){
             event.accept(ModItems.SPIKED_CLUB);
         }
     }
