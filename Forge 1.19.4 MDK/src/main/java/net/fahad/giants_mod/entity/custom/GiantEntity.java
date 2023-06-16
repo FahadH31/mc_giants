@@ -3,9 +3,9 @@ package net.fahad.giants_mod.entity.custom;
 import net.fahad.giants_mod.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -24,10 +24,10 @@ import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInst
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class GiantEntity extends Monster implements GeoEntity {
+public class GiantEntity extends PathfinderMob implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public GiantEntity(EntityType<? extends Monster> entityType, Level level) {
+    public GiantEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -63,6 +63,8 @@ public class GiantEntity extends Monster implements GeoEntity {
         if(this.swinging && tAnimationState.getController().getAnimationState().equals(AnimationController.State.STOPPED)){
             tAnimationState.getController().forceAnimationReset();
             tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.giant.attack", Animation.LoopType.PLAY_ONCE));
+            this.swinging = false;
+            return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }

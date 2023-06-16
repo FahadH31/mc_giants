@@ -20,8 +20,8 @@ public class ModItems {
                     new Item.Properties()));
 
     public static final RegistryObject<Item> SPIKED_CLUB = ITEMS.register("spiked_club",
-            () -> new SwordItem(new ForgeTier(1, 1000, 2.0F, 1, 14, null, null),
-                    8,1f, new Item.Properties()));
+            () -> new SwordItem(new ForgeTier(1, 1000, 0f, 1, 14, null, null),
+                    9,-3.5f, new Item.Properties()));
 
     public static void register (IEventBus eventBus){
         ITEMS.register(eventBus);
