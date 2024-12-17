@@ -26,7 +26,6 @@ forge*changelog.txt
 
 # custom
 /gradle
-build.gradle
 gradle.properties
 gradlew
 gradlew.bat

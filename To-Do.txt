@@ -1,0 +1,8 @@
+- Add 1.19.2 Version
+	- Giant not spawning naturally at all when configured as a PathFinderMob, as done in my 1.19.4 version.
+	- Spawns naturally at night when configured as a Monster.
+
+- Add 1.21+ Version
+
+- Add config file for spawn rate.
+- If possible, fix for pathfinding. Maybe allow it to jump multiple blocks.
