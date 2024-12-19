@@ -2,10 +2,9 @@ plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = '0.0.1-1.19.4'
+version = '0.0.1-1.19.2'
 group = 'net.fh_mods.colossal_giants_mod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'colossal_giants_mod'
 
@@ -27,7 +26,7 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'official', version: '1.19.4'
+    mappings channel: 'official', version: '1.19.2'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -122,9 +121,9 @@ repositories {
 
 dependencies {
 
-    minecraft 'net.minecraftforge:forge:1.19.4-45.3.0'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.4.0'
 
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.19.4:4.2")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.19:3.1.19")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

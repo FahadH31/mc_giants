@@ -17,18 +17,20 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib3.core.AnimationState;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class GiantEntity extends PathfinderMob implements GeoEntity {
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class GiantEntity extends PathfinderMob implements IAnimatable {
+    private AnimationFactory factory = new AnimationFactory(this);
 
-    public GiantEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
-        super(entityType, level);
+    public GiantEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
     }
 
     public static AttributeSupplier setAttributes(){
@@ -53,34 +55,35 @@ public class GiantEntity extends PathfinderMob implements GeoEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-        controllerRegistrar.add(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState attackPredicate(AnimationState<T> tAnimationState) {
-        if(this.swinging && tAnimationState.getController().getAnimationState().equals(AnimationController.State.STOPPED)){
-            tAnimationState.getController().forceAnimationReset();
-            tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.giant.attack", Animation.LoopType.PLAY_ONCE));
+    private PlayState attackPredicate(AnimationEvent event) {
+        if(this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)){
+            event.getController().markNeedsReload();
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.giant.attack", false));
             this.swinging = false;
             return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
     }
 
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
-        if(tAnimationState.isMoving()){
-            tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.giant.walk", Animation.LoopType.LOOP));
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if(event.isMoving()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.giant.walk", true));
             return PlayState.CONTINUE;
         }
-        tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.giant.idle", Animation.LoopType.LOOP));
+
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.giant.idle", true));
         return PlayState.CONTINUE;
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        data.addAnimationController(new AnimationController(this, "attackController", 0, this::attackPredicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 
     protected SoundEvent getAmbientSound(){
